@@ -66,28 +66,34 @@ const images = [
 
 const list = document.querySelector('.gallery');
 const markup = images
-  .map((image) => `<li class="gallery-item">
-  <a class="gallery-link" href="${image.original}" download>
+    .map(({original,preview,description}) =>`<li class="gallery-item">
+  <a class="gallery-link" href="${original}" download>
     <img
       class="gallery-image"
-      src="${image.preview}"
-      data-source="${image.original}"
-      alt="${image.description}"
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"
     />
   </a>
 </li>`)
   .join('');
 list.innerHTML = markup;
 
-list.addEventListener('click', showImage);
+list.addEventListener('click', openModalWindow);
 
-function showImage(event) {
+function openModalWindow(event) {
     if (event.target.nodeName !== "IMG") {
-    return; 
-  }
-    console.log(event.target.dataset.source);  
-const instance = basicLightbox.create(`
-    <img src="${event.target.dataset.source}">`)
-    instance.show()
-}
+    return}
+    const imageSrc = event.target.dataset.source;
+    const modalImage = basicLightbox.create(`<img src="${imageSrc}">`);
+    modalImage.show();
+    list.addEventListener('keyup', closeModalWindow);
+
+    function closeModalWindow(event) {
+    if (event.key === 'Escape') {
+        modalImage.close();
+        list.removeEventListener('keyup', closeModalWindow);
+   }
+}}
+
 
