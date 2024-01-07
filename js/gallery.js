@@ -65,9 +65,10 @@ const images = [
 ];
 
 const list = document.querySelector('.gallery');
+list.addEventListener('click', openModalWindow);
 const markup = images
     .map(({original,preview,description}) =>`<li class="gallery-item">
-  <a class="gallery-link" href="${original}" download>
+  <a class="gallery-link" href="${original}">
     <img
       class="gallery-image"
       src="${preview}"
@@ -76,23 +77,22 @@ const markup = images
     />
   </a>
 </li>`)
-  .join('');
+    .join('');
+  
 list.innerHTML = markup;
 
-list.addEventListener('click', openModalWindow);
-
 function openModalWindow(event) {
-    if (event.target.nodeName !== "IMG") {
-    return}
-    const imageSrc = event.target.dataset.source;
-    const modalImage = basicLightbox.create(`<img src="${imageSrc}">`);
+    event.preventDefault();
+    if (event.target.nodeName !== 'IMG') return;
+    const selectedImageSrc = event.target.dataset.source;
+    const modalImage = basicLightbox.create(`<img src="${selectedImageSrc}">`);
     modalImage.show();
+    
     list.addEventListener('keyup', closeModalWindow);
-
     function closeModalWindow(event) {
     if (event.key === 'Escape') {
         modalImage.close();
-        list.removeEventListener('keyup', closeModalWindow);
+       list.removeEventListener('keyup', closeModalWindow); 
    }
 }}
 
