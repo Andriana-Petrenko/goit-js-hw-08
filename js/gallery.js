@@ -78,22 +78,23 @@ const markup = images
   </a>
 </li>`)
     .join('');
-  
 list.innerHTML = markup;
 
-function openModalWindow(event) {
-    event.preventDefault();
-    if (event.target.nodeName !== 'IMG') return;
-    const selectedImageSrc = event.target.dataset.source;
-    const modalImage = basicLightbox.create(`<img src="${selectedImageSrc}">`);
-    modalImage.show();
+const modalImage = basicLightbox.create(`<img src="">`,
+    {
+        onShow: (modalImage) => { window.addEventListener('keydown', closeModalWindow); },
+        onClose: (modalImage) => { window.removeEventListener('keydown', closeModalWindow); },
+    });
     
-    list.addEventListener('keyup', closeModalWindow);
-    function closeModalWindow(event) {
-    if (event.key === 'Escape') {
-        modalImage.close();
-       list.removeEventListener('keyup', closeModalWindow); 
+function openModalWindow(e) {
+    e.preventDefault();
+    if (e.target.nodeName !== 'IMG') return;
+    const selectedImageSrc = e.target.dataset.source;
+    modalImage.element().querySelector('IMG').src = selectedImageSrc;
+    modalImage.show();
+  }  
+
+function closeModalWindow(e) {
+    if (e.key === 'Escape')
+        modalImage.close(); 
    }
-}}
-
-
