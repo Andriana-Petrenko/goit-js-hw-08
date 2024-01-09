@@ -67,20 +67,20 @@ const images = [
 const list = document.querySelector('.gallery');
 list.addEventListener('click', openModalWindow);
 const markup = images
-    .map(({original,preview,description}) =>`<li class="gallery-item">
-  <a class="gallery-link" href="${original}">
+    .map(({original,preview,description}) =>`<li class='gallery-item'>
+  <a class='gallery-link' href='${original}'>
     <img
-      class="gallery-image"
-      src="${preview}"
-      data-source="${original}"
-      alt="${description}"
+      class='gallery-image'
+      src='${preview}'
+      data-source='${original}'
+      alt='${description}'
     />
   </a>
 </li>`)
     .join('');
 list.innerHTML = markup;
 
-const modalImage = basicLightbox.create(`<img src="">`,
+const modalImage = basicLightbox.create(`<img src=''>`,
     {
         onShow: (modalImage) => { window.addEventListener('keydown', closeModalWindow); },
         onClose: (modalImage) => { window.removeEventListener('keydown', closeModalWindow); },
@@ -95,6 +95,6 @@ function openModalWindow(e) {
   }  
 
 function closeModalWindow(e) {
-    if (e.key === 'Escape')
+    if (e.key === 'Escape'){}
         modalImage.close(); 
    }
