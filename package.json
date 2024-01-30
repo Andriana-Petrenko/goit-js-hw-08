@@ -1,16 +1,22 @@
 {
-  "dependencies": {
-    "basiclightbox": "^5.0.4"
-  },
   "name": "goit-js-hw-08",
-  "version": "1.0.0",
-  "main": "index.js",
-  "devDependencies": {},
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build --base=/goit-js-hw-08/",
+    "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "",
+  "devDependencies": {
+    "glob": "^8.1.0",
+    "vite": "^4.0.5"
+  },
+  "author": "Andriana Petrenko <p.andriana1991@gmail.com>",
   "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "basiclightbox": "^5.0.4",
+    "vite-plugin-full-reload": "^1.0.5",
+    "vite-plugin-html-inject": "^1.0.1"
+  }
 }
